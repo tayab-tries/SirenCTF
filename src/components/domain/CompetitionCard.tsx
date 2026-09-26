@@ -22,9 +22,11 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
     });
   };
 
+  const isSampleArchive = competition.status === "ENDED";
+
   return (
     <div
-      className={`relative rounded-xl border transition-all duration-200 overflow-hidden font-sans ${
+      className={`relative rounded-xl border transition-colors font-sans ${
         featured
           ? "bg-slate-900/90 border-cyan-500/50"
           : "bg-slate-900/60 border-slate-800/80 hover:border-slate-700"
@@ -32,7 +34,7 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
     >
       {/* Top Accent Status Line */}
       <div
-        className={`h-1 w-full ${
+        className={`h-1 w-full rounded-t-xl ${
           competition.status === "LIVE"
             ? "bg-emerald-500"
             : competition.status === "UPCOMING"
@@ -47,8 +49,13 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
             <Badge status={competition.status} size="md" />
+            {isSampleArchive && (
+              <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 uppercase tracking-wider">
+                SAMPLE ARCHIVE
+              </span>
+            )}
             <span className="font-mono text-[11px] px-2.5 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
-              {competition.format}
+              Format: {competition.format}
             </span>
           </div>
 
@@ -59,8 +66,11 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         </div>
 
         {/* Competition Name & Tagline */}
-        <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors">
-          <Link href={`/competitions/${competition.slug}`} className="hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-sm">
+        <h3 className="text-xl font-bold text-white tracking-tight">
+          <Link 
+            href={`/competitions/${competition.slug}`} 
+            className="hover:text-cyan-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-sm"
+          >
             {competition.name}
           </Link>
         </h3>
@@ -103,7 +113,7 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
 
           <div>
             <span className="text-slate-400 block text-[10px] uppercase tracking-wider mb-0.5">
-              Start Date
+              Date
             </span>
             <span className="text-slate-200 flex items-center gap-1 font-medium">
               <Calendar className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
@@ -115,9 +125,9 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         {/* Winner display if completed */}
         {competition.winner && (
           <div className="mt-4 p-3 rounded bg-slate-950/80 border border-slate-800 flex items-center justify-between font-mono text-xs">
-            <span className="text-slate-400 flex items-center gap-1.5">
+            <span className="text-slate-400 flex items-center gap-1.5 text-[11px]">
               <Trophy className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
-              Winner:
+              <span>{isSampleArchive ? "Sample Winner Record:" : "Winner:"}</span>
             </span>
             <span className="font-bold text-slate-100 flex items-center gap-2">
               <span className="text-cyan-400">{competition.winner.teamName}</span>
@@ -130,7 +140,7 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         <div className="mt-6 flex items-center justify-between gap-4 pt-2">
           <div className="flex items-center gap-1.5 text-slate-400 font-mono text-xs">
             <Shield className="h-3.5 w-3.5 text-slate-400" aria-hidden="true" />
-            <span>{competition.challengeCount} Challenges</span>
+            <span>{competition.challengeCount > 0 ? `${competition.challengeCount} Challenges` : "Challenges TBA"}</span>
           </div>
 
           <Button
@@ -139,7 +149,7 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
             size="sm"
             icon={<ArrowRight className="h-3.5 w-3.5" />}
           >
-            {competition.status === "UPCOMING" ? "View Competition" : "Details & Standings"}
+            {competition.status === "UPCOMING" ? "View Competition" : "View Archive"}
           </Button>
         </div>
       </div>

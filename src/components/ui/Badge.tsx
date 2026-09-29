@@ -3,7 +3,7 @@ import { CompetitionStatus } from "@/lib/types";
 
 interface BadgeProps {
   children?: React.ReactNode;
-  variant?: "cyan" | "emerald" | "amber" | "rose" | "slate" | "purple" | "teal";
+  variant?: "cyan" | "emerald" | "amber" | "rose" | "slate" | "purple" | "teal" | "red";
   status?: CompetitionStatus;
   size?: "sm" | "md";
   className?: string;
@@ -12,7 +12,7 @@ interface BadgeProps {
 
 export const Badge: React.FC<BadgeProps> = ({
   children,
-  variant = "cyan",
+  variant = "slate",
   status,
   size = "sm",
   className = "",
@@ -28,7 +28,7 @@ export const Badge: React.FC<BadgeProps> = ({
         label = label || "LIVE";
         break;
       case "UPCOMING":
-        resolvedVariant = "cyan";
+        resolvedVariant = "red";
         label = label || "COMING SOON";
         break;
       case "ENDED":
@@ -43,23 +43,25 @@ export const Badge: React.FC<BadgeProps> = ({
   }
 
   const variantStyles = {
-    cyan: "border-cyan-500/40 text-cyan-400 bg-cyan-950/30",
-    emerald: "border-emerald-500/40 text-emerald-400 bg-emerald-950/30",
-    amber: "border-amber-500/40 text-amber-400 bg-amber-950/30",
-    rose: "border-rose-500/40 text-rose-400 bg-rose-950/30",
-    purple: "border-purple-500/40 text-purple-400 bg-purple-950/30",
-    teal: "border-teal-500/40 text-teal-400 bg-teal-950/30",
-    slate: "border-slate-700/80 text-slate-400 bg-slate-900/60",
+    red: "border-red-900/60 text-red-400 bg-red-950/40",
+    cyan: "border-zinc-800 text-zinc-300 bg-zinc-900/80",
+    emerald: "border-emerald-900/60 text-emerald-400 bg-emerald-950/40",
+    amber: "border-amber-900/60 text-amber-400 bg-amber-950/40",
+    rose: "border-rose-900/60 text-rose-400 bg-rose-950/40",
+    purple: "border-purple-900/60 text-purple-400 bg-purple-950/40",
+    teal: "border-teal-900/60 text-teal-400 bg-teal-950/40",
+    slate: "border-zinc-800 text-zinc-300 bg-zinc-900/80",
   };
 
   const dotColors = {
-    cyan: "bg-cyan-400",
+    red: "bg-red-500 animate-pulse",
+    cyan: "bg-zinc-400",
     emerald: "bg-emerald-400 animate-pulse",
     amber: "bg-amber-400",
     rose: "bg-rose-400",
     purple: "bg-purple-400",
     teal: "bg-teal-400",
-    slate: "bg-slate-500",
+    slate: "bg-zinc-500",
   };
 
   const sizeStyles = {

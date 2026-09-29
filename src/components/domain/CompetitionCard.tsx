@@ -28,8 +28,8 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
     <div
       className={`relative rounded-xl border transition-colors font-sans ${
         featured
-          ? "bg-slate-900/90 border-cyan-500/50"
-          : "bg-slate-900/60 border-slate-800/80 hover:border-slate-700"
+          ? "bg-[#15151b]/95 border-red-900/60"
+          : "bg-[#15151b]/80 border-zinc-800/90 hover:border-red-900/50"
       }`}
     >
       {/* Top Accent Status Line */}
@@ -38,8 +38,8 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
           competition.status === "LIVE"
             ? "bg-emerald-500"
             : competition.status === "UPCOMING"
-            ? "bg-cyan-500"
-            : "bg-slate-700"
+            ? "bg-[#E31B2E]"
+            : "bg-zinc-700"
         }`}
         aria-hidden="true"
       />
@@ -50,17 +50,17 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
           <div className="flex items-center gap-2">
             <Badge status={competition.status} size="md" />
             {isSampleArchive && (
-              <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 uppercase tracking-wider">
+              <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#0d0d11] text-zinc-400 border border-zinc-800 uppercase tracking-wider">
                 SAMPLE ARCHIVE
               </span>
             )}
-            <span className="font-mono text-[11px] px-2.5 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
+            <span className="font-mono text-[11px] px-2.5 py-0.5 rounded bg-[#0d0d11] text-zinc-300 border border-zinc-800">
               Format: {competition.format}
             </span>
           </div>
 
-          <span className="font-mono text-xs text-cyan-400 flex items-center gap-1 font-medium">
-            <Zap className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="font-mono text-xs text-[#FF3347] flex items-center gap-1 font-medium">
+            <Zap className="h-3.5 w-3.5 text-[#E31B2E]" aria-hidden="true" />
             <span>{competition.difficulty}</span>
           </span>
         </div>
@@ -69,40 +69,40 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         <h3 className="text-xl font-bold text-white tracking-tight">
           <Link 
             href={`/competitions/${competition.slug}`} 
-            className="hover:text-cyan-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-sm"
+            className="hover:text-[#FF3347] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded-sm"
           >
             {competition.name}
           </Link>
         </h3>
 
-        <p className="mt-2 text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed font-sans">
+        <p className="mt-2 text-xs sm:text-sm text-zinc-300 line-clamp-2 leading-relaxed font-sans">
           {competition.tagline}
         </p>
 
         {/* Metadata Details Grid */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800/80 font-mono text-xs">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-zinc-800/80 font-mono text-xs">
           <div>
-            <span className="text-slate-400 block text-[10px] uppercase tracking-wider mb-0.5">
+            <span className="text-zinc-500 block text-[10px] uppercase tracking-wider mb-0.5">
               Duration
             </span>
-            <span className="text-slate-200 flex items-center gap-1 font-medium">
-              <Clock className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
+            <span className="text-zinc-200 flex items-center gap-1 font-medium">
+              <Clock className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
               <span>{competition.durationHours}h</span>
             </span>
           </div>
 
           <div>
-            <span className="text-slate-400 block text-[10px] uppercase tracking-wider mb-0.5">
+            <span className="text-zinc-500 block text-[10px] uppercase tracking-wider mb-0.5">
               Team Size
             </span>
-            <span className="text-slate-200 flex items-center gap-1 font-medium">
-              <Users className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
+            <span className="text-zinc-200 flex items-center gap-1 font-medium">
+              <Users className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
               <span>{competition.teamSize}</span>
             </span>
           </div>
 
           <div>
-            <span className="text-slate-400 block text-[10px] uppercase tracking-wider mb-0.5">
+            <span className="text-zinc-500 block text-[10px] uppercase tracking-wider mb-0.5">
               Prize Pool
             </span>
             <span className="text-amber-400 flex items-center gap-1 font-medium">
@@ -112,11 +112,11 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
           </div>
 
           <div>
-            <span className="text-slate-400 block text-[10px] uppercase tracking-wider mb-0.5">
+            <span className="text-zinc-500 block text-[10px] uppercase tracking-wider mb-0.5">
               Date
             </span>
-            <span className="text-slate-200 flex items-center gap-1 font-medium">
-              <Calendar className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
+            <span className="text-zinc-200 flex items-center gap-1 font-medium">
+              <Calendar className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
               <span>{formatDate(competition.startDate)}</span>
             </span>
           </div>
@@ -124,22 +124,22 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
 
         {/* Winner display if completed */}
         {competition.winner && (
-          <div className="mt-4 p-3 rounded bg-slate-950/80 border border-slate-800 flex items-center justify-between font-mono text-xs">
-            <span className="text-slate-400 flex items-center gap-1.5 text-[11px]">
+          <div className="mt-4 p-3 rounded bg-[#0d0d11] border border-zinc-800 flex items-center justify-between font-mono text-xs">
+            <span className="text-zinc-400 flex items-center gap-1.5 text-[11px]">
               <Trophy className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
               <span>{isSampleArchive ? "Sample Winner Record:" : "Winner:"}</span>
             </span>
-            <span className="font-bold text-slate-100 flex items-center gap-2">
-              <span className="text-cyan-400">{competition.winner.teamName}</span>
-              <span className="text-slate-400 text-[10px]">({competition.winner.score} pts)</span>
+            <span className="font-bold text-zinc-100 flex items-center gap-2">
+              <span className="text-red-400">{competition.winner.teamName}</span>
+              <span className="text-zinc-500 text-[10px]">({competition.winner.score} pts)</span>
             </span>
           </div>
         )}
 
         {/* Action Button */}
         <div className="mt-6 flex items-center justify-between gap-4 pt-2">
-          <div className="flex items-center gap-1.5 text-slate-400 font-mono text-xs">
-            <Shield className="h-3.5 w-3.5 text-slate-400" aria-hidden="true" />
+          <div className="flex items-center gap-1.5 text-zinc-400 font-mono text-xs">
+            <Shield className="h-3.5 w-3.5 text-zinc-500" aria-hidden="true" />
             <span>{competition.challengeCount > 0 ? `${competition.challengeCount} Challenges` : "Challenges TBA"}</span>
           </div>
 

@@ -26,15 +26,15 @@ export const CTASection: React.FC<CTASectionProps> = ({
     <section className="relative py-16 sm:py-24 overflow-hidden font-sans" id="final-cta">
       {/* Decorative Subtle Background Grid */}
       <div 
-        className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" 
+        className="absolute inset-0 bg-[linear-gradient(to_right,#27272a15_1px,transparent_1px),linear-gradient(to_bottom,#27272a15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" 
         aria-hidden="true"
       />
 
       <Container size="lg" className="relative z-10">
-        <div className="relative rounded-2xl border border-slate-800/90 bg-slate-900/80 p-8 sm:p-12 md:p-16 backdrop-blur-md shadow-2xl text-center max-w-4xl mx-auto overflow-hidden transition-colors hover:border-cyan-500/40">
+        <div className="relative rounded-2xl border border-zinc-800/90 bg-[#15151b]/90 p-8 sm:p-12 md:p-16 backdrop-blur-md shadow-2xl text-center max-w-4xl mx-auto overflow-hidden transition-colors hover:border-red-900/50">
           {/* Eyebrow Label */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-950 border border-slate-800 text-xs font-mono text-cyan-400 mb-6 uppercase tracking-wider">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" aria-hidden="true" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#050507] border border-zinc-800 text-xs font-mono text-red-400 mb-6 uppercase tracking-wider">
+            <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
             <span>{eyebrow}</span>
           </div>
 
@@ -44,7 +44,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
           </h2>
 
           {/* Grounded Supporting Copy */}
-          <p className="mt-4 sm:mt-6 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-sans">
+          <p className="mt-4 sm:mt-6 text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto leading-relaxed font-sans">
             {description}
           </p>
 
@@ -69,13 +69,13 @@ export const CTASection: React.FC<CTASectionProps> = ({
           </div>
 
           {/* Technical Metadata Row */}
-          <div className="mt-10 sm:mt-12 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-slate-500">
+          <div className="mt-10 sm:mt-12 pt-6 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-zinc-500">
             <div className="flex items-center gap-2">
-              <Shield className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
+              <Shield className="h-3.5 w-3.5 text-[#E31B2E]" aria-hidden="true" />
               <span>SIRENCTF // CYBERSECURITY COMPETITIONS</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-zinc-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true" />
               <span>SYSTEM STATUS // BUILDING</span>
             </div>
           </div>

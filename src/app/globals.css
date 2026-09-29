@@ -5,28 +5,31 @@
 :root {
   --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
   --font-jetbrains: 'JetBrains Mono', monospace;
+  --font-orbitron: 'Orbitron', system-ui, sans-serif;
 
-  /* Centralized SirenCTF Design Tokens */
-  --bg-canvas: #07090e;
-  --bg-surface: #0e1420;
-  --bg-surface-elevated: #131c2d;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --border-accent: rgba(6, 182, 212, 0.35);
+  /* Official SirenCTF Colour Tokens */
+  --background: #050507;
+  --background-secondary: #0d0d11;
+  --surface: #15151b;
+  --border: #27272a;
 
-  --color-accent-primary: #06b6d4;
-  --color-accent-hover: #0891b2;
-  --color-accent-muted: rgba(6, 182, 212, 0.12);
+  --crimson: #c1121f;
+  --siren-red: #e31b2e;
+  --hot-red: #ff3347;
+  --dark-red: #700914;
 
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+
+  --border-subtle: #27272a;
+  --border-hover: rgba(227, 27, 46, 0.4);
+  --border-accent: rgba(227, 27, 46, 0.6);
 }
 
 @layer base {
   body {
-    background-color: var(--bg-canvas);
-    color: var(--color-text-primary);
+    background-color: var(--background);
+    color: var(--text-primary);
     font-family: var(--font-inter);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -35,7 +38,7 @@
   /* Global Keyboard Focus ring consistency */
   *:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px #07090e, 0 0 0 4px #06b6d4;
+    box-shadow: 0 0 0 2px #050507, 0 0 0 4px #e31b2e;
     border-radius: 4px;
   }
 }
@@ -47,21 +50,21 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #07090e;
+  background: #050507;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #27272a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0891b2;
+  background: #e31b2e;
 }
 
 /* Subtle Technical Grid Background */
 .bg-tech-grid {
-  background-size: 32px 32px;
+  background-size: 40px 40px;
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
@@ -69,16 +72,59 @@
 
 /* Cohesive Technical Card Token Class */
 .tech-card {
-  background: rgba(14, 20, 32, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-subtle);
+  background: #15151b;
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tech-card:hover {
-  border-color: var(--border-accent);
-  background: rgba(14, 20, 32, 0.9);
+  border-color: rgba(227, 27, 46, 0.4);
+  background: #15151b;
+}
+
+/* 3D Siren Signal Beacon Keyframes & Animations */
+@keyframes sirenFloat {
+  0%, 100% {
+    transform: translateY(0px) rotateX(8deg) rotateY(-4deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(12deg) rotateY(4deg);
+  }
+}
+
+@keyframes sirenRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sirenPulseGlow {
+  0%, 100% {
+    opacity: 0.5;
+    filter: drop-shadow(0 0 15px rgba(227, 27, 46, 0.25));
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 35px rgba(255, 51, 71, 0.55));
+  }
+}
+
+.siren-3d-beacon {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  animation: sirenFloat 8s ease-in-out infinite;
+}
+
+.siren-ring-spin {
+  animation: sirenRotate 24s linear infinite;
+}
+
+.siren-glow-pulse {
+  animation: sirenPulseGlow 4s ease-in-out infinite;
 }
 
 /* Accessibility: Reduced motion support */
@@ -88,5 +134,9 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .siren-3d-beacon, .siren-ring-spin, .siren-glow-pulse {
+    animation: none !important;
+    transform: none !important;
   }
 }

@@ -1,8 +1,7 @@
 import React from "react";
-import { MessageSquare, Radio, Github, ExternalLink, Check, Users, ArrowRight, ShieldCheck } from "lucide-react";
+import { MessageSquare, Radio, Github, ExternalLink, Check, Users, ShieldCheck } from "lucide-react";
 import { Container } from "../layout/Container";
 import { SectionHeading } from "../ui/SectionHeading";
-import { Button } from "../ui/Button";
 import { CommunityChannel } from "@/lib/types";
 
 interface CommunitySectionProps {
@@ -22,8 +21,8 @@ const CHANNEL_PURPOSE_MAP: Record<string, StructuredPurpose> = {
   Discord: {
     label: "DISCORD",
     cta: "JOIN DISCORD",
-    colorClass: "text-cyan-400 border-cyan-500/40 bg-cyan-950/30",
-    icon: <MessageSquare className="h-5 w-5 text-cyan-400" aria-hidden="true" />,
+    colorClass: "text-[#FF3347] border-red-900/60 bg-red-950/40",
+    icon: <MessageSquare className="h-5 w-5 text-[#E31B2E]" aria-hidden="true" />,
     purposes: [
       "Competition discussion",
       "Challenge hints",
@@ -36,8 +35,8 @@ const CHANNEL_PURPOSE_MAP: Record<string, StructuredPurpose> = {
   WhatsApp: {
     label: "WHATSAPP COMMUNITY",
     cta: "JOIN WHATSAPP",
-    colorClass: "text-emerald-400 border-emerald-500/40 bg-emerald-950/30",
-    icon: <Radio className="h-5 w-5 text-emerald-400" aria-hidden="true" />,
+    colorClass: "text-zinc-300 border-zinc-800 bg-zinc-900/80",
+    icon: <Radio className="h-5 w-5 text-zinc-400" aria-hidden="true" />,
     purposes: [
       "Major announcements",
       "Competition reminders",
@@ -48,8 +47,8 @@ const CHANNEL_PURPOSE_MAP: Record<string, StructuredPurpose> = {
   GitHub: {
     label: "GITHUB",
     cta: "VIEW GITHUB",
-    colorClass: "text-purple-400 border-purple-500/40 bg-purple-950/30",
-    icon: <Github className="h-5 w-5 text-purple-400" aria-hidden="true" />,
+    colorClass: "text-zinc-300 border-zinc-800 bg-zinc-900/80",
+    icon: <Github className="h-5 w-5 text-zinc-400" aria-hidden="true" />,
     purposes: [
       "Open-source toolkits",
       "Challenge archives",
@@ -80,24 +79,24 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({ channels }) 
         />
 
         {/* Conceptual Community Signal Status Panel */}
-        <div className="mb-10 p-4 sm:p-5 rounded-xl border border-slate-800/90 bg-slate-900/60 font-mono text-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="mb-10 p-4 sm:p-5 rounded-xl border border-zinc-800/90 bg-[#15151b]/90 font-mono text-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
             </span>
             <span className="text-white font-bold tracking-wider uppercase">
               COMMUNITY SIGNAL // OPEN INVITATION
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-slate-400 text-[11px]">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300">
+          <div className="flex flex-wrap items-center gap-3 text-zinc-400 text-[11px]">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#050507] border border-zinc-800 text-zinc-300">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
               OFFICIAL HUB BUILDING
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300">
-              <ShieldCheck className="h-3 w-3 text-cyan-400" aria-hidden="true" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#050507] border border-zinc-800 text-zinc-300">
+              <ShieldCheck className="h-3 w-3 text-red-400" aria-hidden="true" />
               RESPONSIBLE COMMUNITY
             </span>
           </div>
@@ -110,15 +109,15 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({ channels }) 
             const mappedInfo = CHANNEL_PURPOSE_MAP[channel.platform] || {
               label: channel.platform.toUpperCase(),
               cta: `JOIN ${channel.platform.toUpperCase()}`,
-              colorClass: "text-slate-300 border-slate-700 bg-slate-800/40",
-              icon: <Users className="h-5 w-5 text-slate-300" aria-hidden="true" />,
+              colorClass: "text-zinc-300 border-zinc-800 bg-zinc-900/80",
+              icon: <Users className="h-5 w-5 text-zinc-400" aria-hidden="true" />,
               purposes: [channel.description],
             };
 
             return (
               <div
                 key={channel.id}
-                className="group relative rounded-xl border border-slate-800/90 bg-slate-900/60 p-6 sm:p-8 flex flex-col justify-between transition-colors hover:border-cyan-500/40"
+                className="group relative rounded-xl border border-zinc-800/90 bg-[#15151b]/80 p-6 sm:p-8 flex flex-col justify-between transition-colors hover:border-red-900/50"
               >
                 <div className="space-y-6">
                   {/* Card Header Tag & Platform Indicator */}
@@ -128,30 +127,30 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({ channels }) 
                       <span>{mappedInfo.label}</span>
                     </span>
 
-                    <span className="font-mono text-[10px] px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-400 font-medium">
+                    <span className="font-mono text-[10px] px-2.5 py-1 rounded bg-[#050507] border border-zinc-800 text-zinc-400 font-medium">
                       {channel.memberCount}
                     </span>
                   </div>
 
                   {/* Channel Title */}
                   <div>
-                    <h3 className="text-xl font-bold text-white font-mono group-hover:text-cyan-400 transition-colors">
+                    <h3 className="text-xl font-bold text-white font-mono group-hover:text-[#FF3347] transition-colors">
                       {channel.name}
                     </h3>
-                    <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+                    <p className="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
                       {channel.description}
                     </p>
                   </div>
 
                   {/* Channel Purpose Bullet List */}
-                  <div className="space-y-2.5 pt-2 border-t border-slate-800/60 font-sans">
-                    <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-semibold">
+                  <div className="space-y-2.5 pt-2 border-t border-zinc-800/80 font-sans">
+                    <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-semibold">
                       CHANNEL PURPOSE:
                     </div>
                     <ul className="space-y-2">
                       {mappedInfo.purposes.map((purpose, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                          <Check className="h-3.5 w-3.5 text-cyan-400 shrink-0 mt-0.5" aria-hidden="true" />
+                        <li key={idx} className="flex items-start gap-2 text-xs text-zinc-300">
+                          <Check className="h-3.5 w-3.5 text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
                           <span>{purpose}</span>
                         </li>
                       ))}
@@ -160,20 +159,20 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({ channels }) 
                 </div>
 
                 {/* Call-to-Action */}
-                <div className="pt-6 mt-6 border-t border-slate-800/80">
+                <div className="pt-6 mt-6 border-t border-zinc-800/80">
                   {isConfigured ? (
                     <a
                       href={channel.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center w-full min-h-[44px] px-4 py-2.5 rounded-lg bg-slate-900 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 font-mono text-xs font-bold tracking-wider uppercase transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950"
+                      className="inline-flex items-center justify-center w-full min-h-[44px] px-4 py-2.5 rounded-lg bg-[#0d0d11] border border-red-900/60 text-red-400 hover:bg-red-950/40 hover:border-red-500 font-mono text-xs font-bold tracking-wider uppercase transition-all focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#050507]"
                     >
                       <span>{mappedInfo.cta}</span>
                       <ExternalLink className="h-3.5 w-3.5 ml-2" aria-hidden="true" />
                     </a>
                   ) : (
                     <div
-                      className="inline-flex items-center justify-center w-full min-h-[44px] px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-500 font-mono text-xs font-medium tracking-wider uppercase cursor-not-allowed select-none"
+                      className="inline-flex items-center justify-center w-full min-h-[44px] px-4 py-2.5 rounded-lg bg-[#050507] border border-zinc-800 text-zinc-500 font-mono text-xs font-medium tracking-wider uppercase cursor-not-allowed select-none"
                       aria-disabled="true"
                     >
                       <span>INVITE PENDING // COMING SOON</span>
@@ -186,17 +185,17 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({ channels }) 
         </div>
 
         {/* Intended Community Activities / Topics Grid */}
-        <div className="rounded-2xl border border-slate-800/90 bg-slate-900/40 p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-slate-800/80 gap-3">
+        <div className="rounded-2xl border border-zinc-800/90 bg-[#15151b]/60 p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-zinc-800 gap-3">
             <div>
-              <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest font-semibold block">
+              <span className="font-mono text-xs text-red-400 uppercase tracking-widest font-semibold block">
                 COMMUNITY STRUCTURE
               </span>
               <h3 className="text-lg sm:text-xl font-bold text-white font-mono mt-1">
                 INTENDED COMMUNITY SPACES
               </h3>
             </div>
-            <span className="font-mono text-[11px] text-slate-500">
+            <span className="font-mono text-[11px] text-zinc-500">
               6 CORE CHANNELS & TOPIC AREAS
             </span>
           </div>
@@ -205,28 +204,28 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({ channels }) 
             {INTENDED_TOPICS.map((topic) => (
               <div
                 key={topic.code}
-                className="p-4 rounded-lg bg-slate-950/70 border border-slate-800/80 space-y-2 hover:border-slate-700 transition-colors"
+                className="p-4 rounded-lg bg-[#050507]/80 border border-zinc-800/80 space-y-2 hover:border-zinc-700 transition-colors"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-cyan-400">
+                  <span className="font-mono text-xs font-bold text-red-400">
                     {`${topic.code} //`}
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500 uppercase">
+                  <span className="font-mono text-[10px] text-zinc-500 uppercase">
                     CHANNEL AREA
                   </span>
                 </div>
                 <div className="font-mono text-sm font-bold text-white">
                   {topic.name}
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                <p className="text-xs text-zinc-400 leading-relaxed font-sans">
                   {topic.detail}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/60 text-center sm:text-left">
-            <p className="text-xs text-slate-500 font-sans italic">
+          <div className="mt-6 pt-4 border-t border-zinc-800/60 text-center sm:text-left">
+            <p className="text-xs text-zinc-500 font-sans italic">
               *Note: These represent intended community channels and focus areas established around SirenCTF competition events and ongoing cybersecurity learning.
             </p>
           </div>

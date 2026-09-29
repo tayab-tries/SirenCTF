@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, Award, Shield, CheckCircle2, Hash, ArrowRight } from "lucide-react";
+import { Search, Award, ShieldCheck, CheckCircle2, Hash, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -21,20 +21,25 @@ export default function CertificatesOverviewPage() {
       <Container size="xl">
         <SectionHeading
           eyebrow="Verification Portal"
-          title="SirenCTF Digital Certificates"
-          description="Validate competition placement credentials, digital badges, and achievement records issued by SirenCTF."
+          title="Tournament Achievement Records"
+          description="Validate competition placement credentials, verified badges, and tournament achievement records issued by SirenCTF."
         />
 
         {/* Certificate Search Box */}
-        <div className="max-w-3xl mx-auto rounded-2xl border border-cyan-500/40 bg-slate-900/90 p-8 sm:p-10 backdrop-blur-xl shadow-glow-cyan text-center space-y-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-950 text-cyan-400 mx-auto border border-cyan-500/30">
+        <div className="max-w-3xl mx-auto rounded-2xl border border-red-900/50 bg-[#0d0d11] p-8 sm:p-10 backdrop-blur-xl shadow-[0_0_30px_rgba(227,27,46,0.15)] text-center space-y-6">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-950 text-[#FF3347] mx-auto border border-red-900/60 shadow-[0_0_15px_rgba(227,27,46,0.3)]">
             <Award className="h-6 w-6" />
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white">Public Certificate Verification</h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-300">
-              Enter a SirenCTF Certificate ID to inspect issue details, recipient team, competition placement, and cryptographic signature seal.
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-red-950/40 border border-red-900/40 text-red-400 font-mono text-[10px] uppercase font-bold mb-2">
+              PUBLIC VERIFICATION ENGINE
+            </div>
+            <h2 className="text-2xl font-extrabold text-white uppercase tracking-tight font-display">
+              Public Record Verification
+            </h2>
+            <p className="mt-2 text-xs sm:text-sm text-zinc-400 font-sans max-w-lg mx-auto">
+              Enter a SirenCTF Tournament Record ID to inspect issue details, recipient team, competition placement, and cryptographic signature seal.
             </p>
           </div>
 
@@ -44,26 +49,28 @@ export default function CertificatesOverviewPage() {
               placeholder="e.g. SRN-2025-8F92A"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 bg-slate-950 border border-slate-700 text-slate-100 font-mono text-sm px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-500"
+              className="flex-1 bg-[#15151b] border border-zinc-700 text-white font-mono text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#E31B2E] focus:ring-1 focus:ring-[#E31B2E] placeholder:text-zinc-500 transition-all"
             />
             <Button type="submit" variant="primary" size="lg" icon={<Search className="h-4 w-4" />}>
-              Verify Certificate
+              Verify Record
             </Button>
           </form>
 
           {/* Sample test buttons */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
-            <span>Try sample certificate IDs:</span>
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-zinc-400">
+            <span>Try sample record IDs:</span>
             <button
+              type="button"
               onClick={() => setQuery("SRN-2025-8F92A")}
-              className="text-cyan-400 underline hover:text-cyan-300"
+              className="text-red-400 underline hover:text-red-300 transition-colors font-bold"
             >
               SRN-2025-8F92A
             </button>
             <span>&bull;</span>
             <button
+              type="button"
               onClick={() => setQuery("SRN-2025-7E14B")}
-              className="text-cyan-400 underline hover:text-cyan-300"
+              className="text-red-400 underline hover:text-red-300 transition-colors font-bold"
             >
               SRN-2025-7E14B
             </button>
@@ -72,36 +79,36 @@ export default function CertificatesOverviewPage() {
 
         {/* Verification Architecture Explanation */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
-          <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/60 space-y-3 font-sans">
-            <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase font-bold">
+          <div className="p-6 rounded-xl border border-zinc-800 bg-[#0d0d11] space-y-3 font-sans">
+            <div className="flex items-center gap-2 text-red-400 font-mono text-xs uppercase font-bold">
               <Hash className="h-4 w-4" />
               Cryptographic Integrity
             </div>
-            <h3 className="font-bold text-white text-base">SHA-256 Hashing</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Every certificate incorporates a unique SHA-256 hash generated from recipient details, competition metrics, and event metadata.
+            <h3 className="font-bold text-white text-base font-display">SHA-256 Fingerprint</h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Every tournament achievement record incorporates a unique SHA-256 fingerprint generated from recipient details, competition metrics, and event metadata.
             </p>
           </div>
 
-          <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/60 space-y-3 font-sans">
+          <div className="p-6 rounded-xl border border-zinc-800 bg-[#0d0d11] space-y-3 font-sans">
             <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs uppercase font-bold">
               <CheckCircle2 className="h-4 w-4" />
               Transparent Audit
             </div>
-            <h3 className="font-bold text-white text-base">Public Verification Flow</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Anyone with a Certificate ID can inspect the public verification portal to validate authentic competition achievements without requiring login credentials.
+            <h3 className="font-bold text-white text-base font-display">Public Verification Flow</h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Anyone with a Record ID can inspect the public verification portal to validate authentic competition achievements without requiring login credentials.
             </p>
           </div>
 
-          <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/60 space-y-3 font-sans">
+          <div className="p-6 rounded-xl border border-zinc-800 bg-[#0d0d11] space-y-3 font-sans">
             <div className="flex items-center gap-2 text-amber-400 font-mono text-xs uppercase font-bold">
-              <Shield className="h-4 w-4" />
-              Clear Distinction
+              <ShieldCheck className="h-4 w-4" />
+              Tournament Achievement Record
             </div>
-            <h3 className="font-bold text-white text-base">Competition Achievement</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Certificates document specific tournament rankings and challenge milestones. SirenCTF does not claim these represent professional industry certifications.
+            <h3 className="font-bold text-white text-base font-display">Honest Framing</h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Records explicitly document specific tournament rankings and challenge milestones. SirenCTF does not claim these represent professional accredited certifications.
             </p>
           </div>
         </div>

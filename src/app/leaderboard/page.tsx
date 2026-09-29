@@ -1,10 +1,10 @@
 import React from "react";
 import { Metadata } from "next";
-import { Radio, Search, Filter, Trophy } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LeaderboardTable } from "@/components/domain/LeaderboardTable";
-import { getLeaderboard } from "@/lib/api/leaderboard";
+import { getLeaderboardWithMeta } from "@/lib/api/leaderboard";
 import { getCompetitions } from "@/lib/api/competitions";
 
 export const metadata: Metadata = {
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function LeaderboardPage() {
-  const leaderboardEntries = await getLeaderboard();
+  const leaderboardData = await getLeaderboardWithMeta();
   const competitions = await getCompetitions();
 
   return (
-    <div className="py-12 sm:py-16 space-y-12">
+    <div className="py-12 sm:py-16 space-y-12 font-sans">
       <Container size="xl">
         <SectionHeading
           eyebrow="Global Standings"
@@ -26,11 +26,11 @@ export default async function LeaderboardPage() {
         />
 
         {/* Filter Toolbar */}
-        <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 font-mono text-xs flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-2 text-slate-300">
+        <div className="p-4 rounded-xl border border-zinc-800 bg-[#0d0d11] font-mono text-xs flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-2 text-zinc-300">
             <Trophy className="h-4 w-4 text-amber-400" />
             <span>Target Tournament:</span>
-            <select className="bg-slate-950 border border-slate-700 text-slate-100 px-3 py-1.5 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-400">
+            <select className="bg-[#15151b] border border-zinc-800 text-zinc-100 px-3 py-1.5 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500">
               <option value="all">SirenCTF #00 Beta (Latest Completed)</option>
               {competitions.map((c) => (
                 <option key={c.id} value={c.slug}>{c.name}</option>
@@ -38,13 +38,18 @@ export default async function LeaderboardPage() {
             </select>
           </div>
 
-          <div className="text-slate-500 text-[11px]">
-            Showing Top {leaderboardEntries.length} Teams &bull; Live Telemetry Sync
+          <div className="text-zinc-400 text-[11px] font-mono">
+            Showing Top {leaderboardData.entries.length} Teams &bull; {leaderboardData.isLive ? "CTFd Live Sync" : "Sample Standings Data"}
           </div>
         </div>
 
         {/* Leaderboard Table */}
-        <LeaderboardTable entries={leaderboardEntries} preview={false} />
+        <LeaderboardTable 
+          entries={leaderboardData.entries} 
+          preview={false} 
+          isLive={leaderboardData.isLive}
+          source={leaderboardData.source}
+        />
       </Container>
     </div>
   );

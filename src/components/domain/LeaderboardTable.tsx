@@ -5,12 +5,19 @@ import { LeaderboardEntry } from "@/lib/types";
 interface LeaderboardTableProps {
   entries: LeaderboardEntry[];
   preview?: boolean;
+  isLive?: boolean;
+  source?: "ctfd" | "mock";
+  lastUpdated?: string;
 }
 
 export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   entries,
   preview = false,
+  isLive = false,
+  source = "mock",
 }) => {
+  const isRealLive = isLive || source === "ctfd";
+
   const getRankBadge = (rank: number) => {
     switch (rank) {
       case 1:
@@ -53,14 +60,18 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
 
   return (
     <div className="w-full overflow-hidden rounded-xl border border-zinc-800/90 bg-[#050507] backdrop-blur-md shadow-xl font-sans">
-      {/* Sample Data Notice Banner */}
-      <div className="bg-[#0d0d11] border-b border-zinc-800 px-4 py-2 text-[11px] font-mono text-zinc-400 flex flex-wrap items-center justify-between gap-2">
-        <span className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-red-500" aria-hidden="true" />
-          <span>[NOTICE] DEMO DATA // SAMPLE STANDINGS PREVIEW</span>
+      {/* Telemetry Source Banner */}
+      <div className={`px-4 py-2 text-[11px] font-mono flex flex-wrap items-center justify-between gap-2 ${
+        isRealLive 
+          ? "bg-red-950/30 border-b border-red-900/60 text-red-400" 
+          : "bg-[#0d0d11] border-b border-zinc-800 text-zinc-400"
+      }`}>
+        <span className="flex items-center gap-2 font-bold">
+          <span className={`h-1.5 w-1.5 rounded-full ${isRealLive ? "bg-red-500 animate-pulse" : "bg-zinc-500"}`} aria-hidden="true" />
+          <span>{isRealLive ? "LIVE SCOREBOARD // OFFICIAL FEED" : "PREVIEW STANDINGS // DEMO DATA"}</span>
         </span>
-        <span className="text-[10px] text-zinc-500 uppercase tracking-widest hidden sm:inline">
-          DEMO SCOREBOARD &bull; SAMPLE PARTICIPANTS ONLY
+        <span className={`text-[10px] uppercase tracking-widest hidden sm:inline ${isRealLive ? "text-red-400 font-semibold" : "text-zinc-500"}`}>
+          {isRealLive ? "CTFD ENGINE SYNCED" : "SAMPLE DATA \u2022 PARTICIPANT PREVIEW"}
         </span>
       </div>
 
@@ -71,19 +82,19 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
               <th scope="col" className="py-3 px-4 w-14 text-center">Rank</th>
               <th scope="col" className="py-3 px-4">Team / Handle</th>
               {!preview && <th scope="col" className="py-3 px-4 hidden md:table-cell">Affiliation</th>}
-              <th scope="col" className="py-3 px-4 text-center">Solves</th>
+              <th scope="col" className="py-3 px-4 text-center hidden sm:table-cell">Solves</th>
               <th scope="col" className="py-3 px-4 text-right">Score</th>
               {!preview && <th scope="col" className="py-3 px-4 text-right hidden sm:table-cell">Last Solve</th>}
-              <th scope="col" className="py-3 px-4 text-center w-12">Trend</th>
+              <th scope="col" className="py-3 px-4 text-center w-12 hidden sm:table-cell">Trend</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800/60">
-            {entries.map((entry) => (
+            {entries.map((entry, idx) => (
               <tr
                 key={entry.teamId}
                 className={`hover:bg-[#15151b]/80 transition-colors group font-mono text-xs ${
                   entry.rank === 1 ? "bg-red-950/20" : ""
-                }`}
+                } ${idx >= 5 ? "hidden sm:table-row" : ""}`}
               >
                 {/* Rank */}
                 <td className="py-3 px-4 text-center">
@@ -117,7 +128,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
                 )}
 
                 {/* Solves */}
-                <td className="py-3 px-4 text-center">
+                <td className="py-3 px-4 text-center hidden sm:table-cell">
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#0d0d11] text-zinc-300 border border-zinc-800">
                     <CheckCircle className="h-3 w-3 text-emerald-400" aria-hidden="true" />
                     <span>{entry.solvesCount}</span>
@@ -137,7 +148,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
                 )}
 
                 {/* Trend */}
-                <td className="py-3 px-4 text-center">
+                <td className="py-3 px-4 text-center hidden sm:table-cell">
                   <div className="flex justify-center">{getTrendIcon(entry.trend)}</div>
                 </td>
               </tr>

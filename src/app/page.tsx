@@ -17,7 +17,7 @@ import { CertificatesSection } from "@/components/domain/CertificatesSection";
 import { CommunitySection } from "@/components/domain/CommunitySection";
 
 import { getCompetitions, getCategories, getFeaturedCompetition } from "@/lib/api/competitions";
-import { getLeaderboard } from "@/lib/api/leaderboard";
+import { getLeaderboardWithMeta } from "@/lib/api/leaderboard";
 import { getCommunityChannels } from "@/lib/api/winners";
 import { getCertificateById } from "@/lib/api/certificates";
 
@@ -25,11 +25,11 @@ export default async function HomePage() {
   const competitions = await getCompetitions();
   const featuredComp = await getFeaturedCompetition();
   const categories = await getCategories();
-  const leaderboardPreview = await getLeaderboard(undefined, 5);
+  const leaderboardData = await getLeaderboardWithMeta(undefined, 5);
   const communityChannels = await getCommunityChannels();
   const sampleCertificate = await getCertificateById("SRN-2025-8F92A");
 
-  const pastCompetitions = competitions.filter((c) => c.status === "ENDED");
+  const pastCompetitions = competitions.filter((c) => c.status === "ENDED" || c.status === "ARCHIVED");
 
   return (
     <div className="relative font-sans space-y-24 sm:space-y-32 pb-16 overflow-hidden">
@@ -83,22 +83,6 @@ export default async function HomePage() {
                   JOIN THE COMMUNITY
                 </Button>
               </div>
-
-              {/* System Metadata Row */}
-              <div className="pt-6 grid grid-cols-3 gap-4 border-t border-zinc-800/80 font-mono text-xs max-w-lg">
-                <div>
-                  <span className="text-red-400 font-bold text-base sm:text-lg block">01</span>
-                  <span className="text-zinc-500 text-[10px] uppercase tracking-wider block">UPCOMING EVENT</span>
-                </div>
-                <div>
-                  <span className="text-red-400 font-bold text-base sm:text-lg block">08</span>
-                  <span className="text-zinc-500 text-[10px] uppercase tracking-wider block">DOMAINS</span>
-                </div>
-                <div>
-                  <span className="text-amber-400 font-bold text-base sm:text-lg block">BUILDING</span>
-                  <span className="text-zinc-500 text-[10px] uppercase tracking-wider block">SYSTEM STATUS</span>
-                </div>
-              </div>
             </div>
 
             {/* Right Column Visual: 3D Siren Signal Beacon with Official Logo PNG */}
@@ -132,7 +116,7 @@ export default async function HomePage() {
             description="SirenCTF competitions span multiple cybersecurity disciplines designed around practical problem solving, vulnerability discovery, and defensive analysis."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {categories.map((cat) => (
               <CategoryCard key={cat.id} category={cat} />
             ))}
@@ -165,7 +149,12 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <LeaderboardTable entries={leaderboardPreview} preview={true} />
+          <LeaderboardTable 
+            entries={leaderboardData.entries} 
+            preview={true} 
+            isLive={leaderboardData.isLive}
+            source={leaderboardData.source}
+          />
         </Container>
       </section>
 

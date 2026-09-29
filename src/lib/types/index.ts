@@ -1,4 +1,16 @@
-export type CompetitionStatus = "UPCOMING" | "LIVE" | "ENDED" | "ARCHIVED";
+export type CompetitionStatus = 
+  | "DRAFT" 
+  | "ANNOUNCED" 
+  | "REGISTRATION_OPEN" 
+  | "LIVE" 
+  | "ENDED" 
+  | "ARCHIVED";
+
+export type RegistrationStatus = 
+  | "TBA" 
+  | "OPENING_SOON" 
+  | "OPEN" 
+  | "CLOSED";
 
 export type CompetitionFormat = "Jeopardy" | "Attack-Defense" | "King of the Hill" | "Mixed";
 
@@ -20,6 +32,16 @@ export interface Category {
   challengeCount: number;
   iconName: string;
   colorBadge: string;
+  isProvisional?: boolean;
+}
+
+export interface ChallengeSummary {
+  id: string;
+  title: string;
+  category: CategorySlug;
+  points: number;
+  solves: number;
+  isProvisional?: boolean;
 }
 
 export interface Competition {
@@ -29,13 +51,17 @@ export interface Competition {
   tagline: string;
   description: string;
   status: CompetitionStatus;
+  registrationStatus: RegistrationStatus;
+  isProvisional?: boolean;
+  ctfdUrl?: string;          // Pointer for future CTFd engine integration
+  registrationUrl?: string;  // External/internal registration link when live
   format: CompetitionFormat;
   startDate: string; // ISO date string
   endDate: string;   // ISO date string
   durationHours: number;
   teamSize: string;  // e.g. "1 - 4 Members"
   difficulty: "Beginner" | "Intermediate" | "Advanced" | "All Skill Levels";
-  prizePool: string; // e.g. "$2,500 + Badges & Certificates"
+  prizePool: string; // e.g. "$2,500 + Badges & Certificates" or "TBA"
   participantCount: number;
   teamCount: number;
   challengeCount: number;

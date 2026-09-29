@@ -27,9 +27,17 @@ export const Badge: React.FC<BadgeProps> = ({
         resolvedVariant = "emerald";
         label = label || "LIVE";
         break;
-      case "UPCOMING":
+      case "REGISTRATION_OPEN":
+        resolvedVariant = "amber";
+        label = label || "REGISTRATION OPEN";
+        break;
+      case "ANNOUNCED":
         resolvedVariant = "red";
-        label = label || "COMING SOON";
+        label = label || "ANNOUNCED";
+        break;
+      case "DRAFT":
+        resolvedVariant = "slate";
+        label = label || "DRAFT";
         break;
       case "ENDED":
         resolvedVariant = "slate";

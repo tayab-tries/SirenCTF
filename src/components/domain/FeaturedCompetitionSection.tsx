@@ -76,7 +76,15 @@ export const FeaturedCompetitionSection: React.FC<FeaturedCompetitionSectionProp
                   </span>
                   <span className="text-amber-400 font-bold flex items-center gap-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true" />
-                    <span>ANNOUNCEMENT SOON</span>
+                    <span>
+                      {competition.registrationStatus === "OPEN" 
+                        ? "REGISTRATION OPEN" 
+                        : competition.registrationStatus === "OPENING_SOON"
+                        ? "OPENING SOON"
+                        : competition.registrationStatus === "CLOSED"
+                        ? "CLOSED"
+                        : "ANNOUNCEMENT SOON"}
+                    </span>
                   </span>
                 </div>
 
@@ -86,7 +94,7 @@ export const FeaturedCompetitionSection: React.FC<FeaturedCompetitionSectionProp
                   </span>
                   <span className="text-zinc-200 font-bold flex items-center gap-1">
                     <Calendar className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
-                    <span>Q4 2026 (TBA)</span>
+                    <span>{competition.isProvisional ? "Q4 2026 (Target: TBA)" : new Date(competition.startDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
                   </span>
                 </div>
 
@@ -96,7 +104,7 @@ export const FeaturedCompetitionSection: React.FC<FeaturedCompetitionSectionProp
                   </span>
                   <span className="text-zinc-200 font-bold flex items-center gap-1">
                     <Clock className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
-                    <span>{competition.durationHours > 0 ? `${competition.durationHours} Hours (Target)` : "TBA"}</span>
+                    <span>{competition.durationHours > 0 ? `${competition.durationHours} Hours ${competition.isProvisional ? "(Target)" : ""}` : "TBA"}</span>
                   </span>
                 </div>
 
@@ -116,7 +124,7 @@ export const FeaturedCompetitionSection: React.FC<FeaturedCompetitionSectionProp
                   </span>
                   <span className="text-zinc-200 font-bold flex items-center gap-1">
                     <Shield className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
-                    <span>{competition.challengeCount > 0 ? `${competition.challengeCount} Challenges` : "TBA"}</span>
+                    <span>{competition.challengeCount > 0 && !competition.isProvisional ? `${competition.challengeCount} Challenges` : "TBA"}</span>
                   </span>
                 </div>
 
@@ -150,18 +158,47 @@ export const FeaturedCompetitionSection: React.FC<FeaturedCompetitionSectionProp
 
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Button
-                  href={`/competitions/${competition.slug}`}
-                  variant="primary"
-                  size="lg"
-                  icon={<ArrowRight className="h-4 w-4" />}
-                >
-                  VIEW COMPETITION DETAILS
-                </Button>
+                {competition.status === "LIVE" && competition.ctfdUrl ? (
+                  <Button
+                    href={competition.ctfdUrl}
+                    variant="primary"
+                    size="lg"
+                    icon={<ArrowRight className="h-4 w-4" />}
+                  >
+                    LAUNCH ARENA &rarr;
+                  </Button>
+                ) : competition.registrationStatus === "OPEN" ? (
+                  <Button
+                    href={competition.registrationUrl || `/competitions/${competition.slug}`}
+                    variant="primary"
+                    size="lg"
+                    icon={<ArrowRight className="h-4 w-4" />}
+                  >
+                    REGISTER NOW
+                  </Button>
+                ) : competition.registrationStatus === "OPENING_SOON" ? (
+                  <Button
+                    href={`/competitions/${competition.slug}`}
+                    variant="outline"
+                    size="lg"
+                    icon={<ArrowRight className="h-4 w-4" />}
+                  >
+                    REGISTRATION OPENS SOON
+                  </Button>
+                ) : (
+                  <Button
+                    href={`/competitions/${competition.slug}`}
+                    variant="primary"
+                    size="lg"
+                    icon={<ArrowRight className="h-4 w-4" />}
+                  >
+                    VIEW COMPETITION DETAILS
+                  </Button>
+                )}
 
                 <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
                   <Info className="h-3.5 w-3.5 text-[#E31B2E]" aria-hidden="true" />
-                  <span>Provisional event specs &bull; Final schedule TBA</span>
+                  <span>Provisional event specifications &mdash; official schedule, challenge counts, and rules will be published prior to registration opening.</span>
                 </span>
               </div>
             </div>

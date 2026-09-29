@@ -22,7 +22,8 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
     });
   };
 
-  const isSampleArchive = competition.status === "ENDED";
+  const isSampleArchive = competition.status === "ENDED" || competition.status === "ARCHIVED";
+  const isUpcomingOrLive = competition.status === "ANNOUNCED" || competition.status === "REGISTRATION_OPEN" || competition.status === "LIVE";
 
   return (
     <div
@@ -37,7 +38,9 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         className={`h-1 w-full rounded-t-xl ${
           competition.status === "LIVE"
             ? "bg-emerald-500"
-            : competition.status === "UPCOMING"
+            : competition.status === "REGISTRATION_OPEN"
+            ? "bg-amber-500"
+            : isUpcomingOrLive
             ? "bg-[#E31B2E]"
             : "bg-zinc-700"
         }`}
@@ -87,7 +90,7 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
             </span>
             <span className="text-zinc-200 flex items-center gap-1 font-medium">
               <Clock className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
-              <span>{competition.durationHours}h</span>
+              <span>{competition.durationHours > 0 ? `${competition.durationHours}h` : "TBA"}</span>
             </span>
           </div>
 
@@ -117,7 +120,7 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
             </span>
             <span className="text-zinc-200 flex items-center gap-1 font-medium">
               <Calendar className="h-3.5 w-3.5 text-zinc-400" aria-hidden="true" />
-              <span>{formatDate(competition.startDate)}</span>
+              <span>{competition.isProvisional ? "Q4 2026 (TBA)" : formatDate(competition.startDate)}</span>
             </span>
           </div>
         </div>
@@ -140,16 +143,16 @@ export const CompetitionCard: React.FC<CompetitionCardProps> = ({
         <div className="mt-6 flex items-center justify-between gap-4 pt-2">
           <div className="flex items-center gap-1.5 text-zinc-400 font-mono text-xs">
             <Shield className="h-3.5 w-3.5 text-zinc-500" aria-hidden="true" />
-            <span>{competition.challengeCount > 0 ? `${competition.challengeCount} Challenges` : "Challenges TBA"}</span>
+            <span>{competition.challengeCount > 0 && !competition.isProvisional ? `${competition.challengeCount} Challenges` : "Challenges TBA"}</span>
           </div>
 
           <Button
             href={`/competitions/${competition.slug}`}
-            variant={competition.status === "UPCOMING" ? "primary" : "outline"}
+            variant={isUpcomingOrLive ? "primary" : "outline"}
             size="sm"
             icon={<ArrowRight className="h-3.5 w-3.5" />}
           >
-            {competition.status === "UPCOMING" ? "View Competition" : "View Archive"}
+            {isUpcomingOrLive ? "View Competition" : "View Archive"}
           </Button>
         </div>
       </div>

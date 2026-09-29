@@ -12,7 +12,8 @@ import {
   ArrowLeft,
   ExternalLink,
   Lock,
-  Radio
+  Radio,
+  Info
 } from "lucide-react";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
@@ -86,11 +87,15 @@ export default async function CompetitionDetailPage({ params }: Props) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-950/80 border border-slate-800 font-mono text-xs">
             <div>
               <span className="text-slate-500 text-[10px] uppercase block mb-0.5">Start Time</span>
-              <span className="text-slate-200 font-bold">{new Date(comp.startDate).toUTCString()}</span>
+              <span className="text-slate-200 font-bold">
+                {comp.isProvisional ? "Q4 2026 (Target: TBA)" : new Date(comp.startDate).toUTCString()}
+              </span>
             </div>
             <div>
               <span className="text-slate-500 text-[10px] uppercase block mb-0.5">Duration</span>
-              <span className="text-slate-200 font-bold">{comp.durationHours} Hours</span>
+              <span className="text-slate-200 font-bold">
+                {comp.durationHours > 0 ? `${comp.durationHours} Hours ${comp.isProvisional ? "(Target)" : ""}` : "TBA"}
+              </span>
             </div>
             <div>
               <span className="text-slate-500 text-[10px] uppercase block mb-0.5">Team Format</span>
@@ -104,9 +109,17 @@ export default async function CompetitionDetailPage({ params }: Props) {
 
           {/* CTA Banner */}
           <div className="pt-2 flex flex-wrap items-center gap-4">
-            {comp.status === "UPCOMING" ? (
-              <Button variant="primary" size="lg" icon={<Radio className="h-4 w-4" />}>
-                Registration Opening Soon
+            {comp.status === "LIVE" && comp.ctfdUrl ? (
+              <Button href={comp.ctfdUrl} variant="primary" size="lg" icon={<ExternalLink className="h-4 w-4" />}>
+                Launch Arena &rarr;
+              </Button>
+            ) : comp.registrationStatus === "OPEN" ? (
+              <Button href={comp.registrationUrl || "#register"} variant="primary" size="lg" icon={<Radio className="h-4 w-4" />}>
+                Register Now
+              </Button>
+            ) : comp.registrationStatus === "OPENING_SOON" ? (
+              <Button variant="outline" size="lg" icon={<Radio className="h-4 w-4" />}>
+                Registration Opens Soon
               </Button>
             ) : comp.status === "LIVE" ? (
               <Button variant="primary" size="lg" icon={<ExternalLink className="h-4 w-4" />}>
@@ -128,6 +141,13 @@ export default async function CompetitionDetailPage({ params }: Props) {
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Info */}
           <div className="lg:col-span-8 space-y-12">
+            {/* Provisional Draft Specification Notice */}
+            {comp.isProvisional && (
+              <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-900/50 font-mono text-xs text-amber-300 flex items-center gap-2">
+                <Info className="h-4 w-4 shrink-0 text-amber-400" aria-hidden="true" />
+                <span>[PROVISIONAL SPECIFICATION] Official schedule, challenge counts, and final rules will be published prior to registration opening.</span>
+              </div>
+            )}
             {/* Rules Section */}
             <div id="rules" className="space-y-4">
               <h3 className="font-mono text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">

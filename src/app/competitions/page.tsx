@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 export default async function CompetitionsPage() {
   const competitions = await getCompetitions();
 
-  const upcoming = competitions.filter((c) => c.status === "UPCOMING");
+  const upcoming = competitions.filter((c) => c.status === "ANNOUNCED" || c.status === "REGISTRATION_OPEN" || (c.status as string) === "UPCOMING");
   const live = competitions.filter((c) => c.status === "LIVE");
-  const ended = competitions.filter((c) => c.status === "ENDED");
+  const ended = competitions.filter((c) => c.status === "ENDED" || c.status === "ARCHIVED");
 
   return (
     <div className="py-12 sm:py-16 space-y-16">

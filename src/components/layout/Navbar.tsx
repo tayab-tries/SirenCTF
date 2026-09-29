@@ -6,12 +6,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { 
   Trophy, 
-  Award, 
   Users, 
   Info, 
   Menu, 
   X, 
-  Search,
   ChevronRight,
   Radio
 } from "lucide-react";
@@ -27,8 +25,6 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { name: "Competitions", href: "/competitions", icon: Trophy },
     { name: "Leaderboard", href: "/leaderboard", icon: Radio },
-    { name: "Winners", href: "/winners", icon: Trophy },
-    { name: "Certificates", href: "/certificates", icon: Award },
     { name: "Community", href: "/community", icon: Users },
     { name: "About", href: "/about", icon: Info },
   ];
@@ -123,11 +119,10 @@ export const Navbar: React.FC = () => {
             ) : (
               <button
                 onClick={() => setSearchOpen(true)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono text-zinc-300 hover:text-white bg-[#0d0d11] hover:bg-zinc-900 border border-zinc-800 hover:border-red-900/50 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                className="text-xs font-mono text-zinc-400 hover:text-zinc-200 transition-colors focus-visible:outline-none focus-visible:underline px-2 py-1"
                 title="Verify Certificate"
               >
-                <Search className="h-3.5 w-3.5 text-[#E31B2E]" aria-hidden="true" />
-                <span>Verify Cert</span>
+                Verify Cert
               </button>
             )}
 

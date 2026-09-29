@@ -25,8 +25,8 @@ export const CertificatesSection: React.FC<CertificatesSectionProps> = ({
       <Container size="xl">
         <SectionHeading
           eyebrow="VERIFIABLE ACHIEVEMENTS"
-          title="PROVE WHAT YOU BUILT."
-          description="SirenCTF plans to provide digital achievement records tied to specific competitions, placements, or participation, with a public verification system for checking certificate authenticity."
+          title="PROVE YOUR TOURNAMENT PERFORMANCE."
+          description="SirenCTF provides verifiable digital achievement records for tournament performance, placement ranks, and event participation, backed by a public verification engine."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -76,7 +76,7 @@ export const CertificatesSection: React.FC<CertificatesSectionProps> = ({
               {/* Terminology & Data Integrity Disclaimer */}
               <div className="p-3 rounded bg-[#050507] border border-zinc-800 text-[11px] text-zinc-400 font-sans leading-relaxed">
                 <strong className="text-zinc-300 font-mono block mb-0.5">Record Classification:</strong>
-                SirenCTF certificates document competition participation, placement ranks, and tournament achievements. They are competition records, not professional industry certifications.
+                SirenCTF achievement records verify competitive tournament performance and participation. They are competition records, not professional industry certifications.
               </div>
 
               {/* CTA Button */}
@@ -87,7 +87,7 @@ export const CertificatesSection: React.FC<CertificatesSectionProps> = ({
                   size="md"
                   icon={<ArrowRight className="h-4 w-4" />}
                 >
-                  VERIFY A CERTIFICATE
+                  LOOK UP ACHIEVEMENT RECORD
                 </Button>
               </div>
             </div>

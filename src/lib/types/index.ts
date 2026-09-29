@@ -91,19 +91,24 @@ export interface LeaderboardEntry {
   trend: "up" | "down" | "steady";
 }
 
+export type AchievementType = "WINNER" | "PODIUM" | "TOP_TEN" | "PARTICIPATION" | "HONORABLE_MENTION";
+
 export interface Certificate {
   id: string; // e.g. "SRN-2025-8F92A"
   participantName: string;
   teamName: string;
   competitionId: string;
   competitionName: string;
-  achievement: string; // e.g. "1st Place Winner", "Top 10 Finalist", "Official Participant"
+  achievementType: AchievementType;
+  achievementTitle: string; // e.g. "1st Place Champions" or "Verified Participant"
+  achievement?: string; // Alias for backward compatibility
   placementRank?: number;
   totalTeams?: number;
   issueDate: string;
   issuer: string;
-  verificationHash: string; // SHA-256 style hash string
+  verificationHash: string; // SHA-256 fingerprint string
   isValid: boolean;
+  isDemoRecord?: boolean; // explicit flag for sample/preview records
   metadata: {
     totalSolves: number;
     totalPoints: number;
@@ -143,3 +148,5 @@ export interface RoadmapPhase {
   description: string;
   features: string[];
 }
+
+export * from "./organizer";

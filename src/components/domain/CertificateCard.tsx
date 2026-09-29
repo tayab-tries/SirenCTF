@@ -41,7 +41,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
           </div>
           <div>
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF3347] font-semibold block">
-              Digital Achievement Record
+              TOURNAMENT ACHIEVEMENT RECORD
             </span>
             <h3 className="font-mono text-lg font-bold tracking-tight text-white">
               SIREN<span className="text-[#E31B2E]">CTF</span>
@@ -50,13 +50,13 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {isSamplePreview ? (
+          {isSamplePreview || certificate.isDemoRecord ? (
             <Badge variant="red" size="md">
-              SAMPLE CERTIFICATE PREVIEW
+              SAMPLE RECORD PREVIEW
             </Badge>
           ) : (
-            <Badge variant="slate" size="md">
-              VERIFICATION ENGINE PLANNED
+            <Badge variant="emerald" size="md">
+              AUTHENTICATED RECORD
             </Badge>
           )}
         </div>
@@ -65,7 +65,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
       {/* Certificate Content */}
       <div className="py-6 text-center space-y-3 max-w-2xl mx-auto">
         <span className="text-[11px] font-mono tracking-widest text-zinc-400 uppercase block">
-          This documents competition achievement for
+          This documents competitive tournament achievement for
         </span>
 
         <h4 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans">
@@ -77,7 +77,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
         </p>
 
         <div className="inline-block my-1 px-5 py-2 rounded-lg bg-[#0d0d11] border border-amber-500/40 text-amber-400 font-mono font-bold text-base sm:text-lg">
-          {certificate.achievement}
+          {certificate.achievementTitle || certificate.achievement}
         </div>
 
         <p className="text-xs text-zinc-400 font-sans">
@@ -94,13 +94,13 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
 
         <div>
           <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">Issue Date</span>
-          <span className="text-zinc-200">{certificate.issueDate}</span>
+          <span className="text-zinc-200">{certificate.issueDate.includes("T") ? new Date(certificate.issueDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : certificate.issueDate}</span>
         </div>
 
         <div>
           <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">Tournament Rank</span>
           <span className="text-zinc-200">
-            {certificate.placementRank ? `#${certificate.placementRank} of ${certificate.totalTeams} Teams` : "Participant"}
+            {certificate.placementRank ? `#${certificate.placementRank} of ${certificate.totalTeams} Teams` : "Verified Participant"}
           </span>
         </div>
       </div>
@@ -112,7 +112,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
           <span className="text-red-400 font-bold">{certificate.id}</span>
         </span>
         <span className="text-zinc-500 font-mono text-[10px]">
-          FINGERPRINT // PREVIEW ONLY
+          FINGERPRINT // {certificate.verificationHash.substring(0, 16)}...
         </span>
       </div>
 

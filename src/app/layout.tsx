@@ -48,6 +48,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { RootAppShell } from "@/components/layout/RootAppShell";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,10 +57,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark scroll-smooth ${inter.variable} ${jetbrainsMono.variable} ${orbitron.variable}`}>
-      <body className="min-h-screen bg-[#050507] text-[#F5F5F5] flex flex-col font-sans antialiased selection:bg-[#E31B2E] selection:text-white">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="min-h-screen bg-[#050507] text-[#F5F5F5] font-sans antialiased selection:bg-[#E31B2E] selection:text-white">
+        <RootAppShell>{children}</RootAppShell>
       </body>
     </html>
   );

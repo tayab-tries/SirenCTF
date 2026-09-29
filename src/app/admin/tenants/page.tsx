@@ -12,7 +12,8 @@ import {
   Layers, 
   Shield, 
   Box,
-  Globe
+  Globe,
+  ExternalLink
 } from "lucide-react";
 import { getTenants } from "@/lib/api/tenants";
 
@@ -183,26 +184,39 @@ export default async function AdminTenantsPage() {
                     </div>
                   </td>
 
-                  {/* Status */}
-                  <td className="py-4 px-3 align-top text-right">
-                    {t.status === "ACTIVE" && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-emerald-900/60 bg-emerald-950/40 text-emerald-400 font-mono text-[10px] uppercase font-bold">
-                        <CheckCircle2 className="h-3 w-3" />
-                        <span>ACTIVE</span>
-                      </span>
-                    )}
-                    {t.status === "PROVISIONING" && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-purple-900/60 bg-purple-950/40 text-purple-400 font-mono text-[10px] uppercase font-bold">
-                        <Clock className="h-3 w-3 animate-pulse" />
-                        <span>PROVISIONING</span>
-                      </span>
-                    )}
-                    {t.status === "SUSPENDED" && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-rose-900/60 bg-rose-950/40 text-rose-400 font-mono text-[10px] uppercase font-bold">
-                        <AlertCircle className="h-3 w-3" />
-                        <span>SUSPENDED</span>
-                      </span>
-                    )}
+                  {/* Status & Actions */}
+                  <td className="py-4 px-3 align-top text-right space-y-2">
+                    <div>
+                      {t.status === "ACTIVE" && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-emerald-900/60 bg-emerald-950/40 text-emerald-400 font-mono text-[10px] uppercase font-bold">
+                          <CheckCircle2 className="h-3 w-3" />
+                          <span>ACTIVE</span>
+                        </span>
+                      )}
+                      {t.status === "PROVISIONING" && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-purple-900/60 bg-purple-950/40 text-purple-400 font-mono text-[10px] uppercase font-bold">
+                          <Clock className="h-3 w-3 animate-pulse" />
+                          <span>PROVISIONING</span>
+                        </span>
+                      )}
+                      {t.status === "SUSPENDED" && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-rose-900/60 bg-rose-950/40 text-rose-400 font-mono text-[10px] uppercase font-bold">
+                          <AlertCircle className="h-3 w-3" />
+                          <span>SUSPENDED</span>
+                        </span>
+                      )}
+                    </div>
+
+                    <div>
+                      <Link
+                        href={`/org/${t.slug}`}
+                        target="_blank"
+                        className="inline-flex items-center gap-1 text-[10px] text-red-400 hover:text-red-300 font-bold underline font-mono"
+                      >
+                        <span>View Portal</span>
+                        <ExternalLink className="h-2.5 w-2.5" />
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))}

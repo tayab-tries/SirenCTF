@@ -151,3 +151,4 @@ export interface RoadmapPhase {
 
 export * from "./organizer";
 export * from "./challenge";
+export * from "./tenant";

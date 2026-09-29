@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Trophy, ArrowLeft, Shield, Radio, Terminal } from "lucide-react";
+import { LayoutDashboard, Trophy, ArrowLeft, Shield, Radio, Terminal, Server } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
     { name: "Competitions", href: "/admin/competitions", icon: Trophy },
+    { name: "Challenges & Infra", href: "/admin/challenges", icon: Server },
   ];
 
   return (
